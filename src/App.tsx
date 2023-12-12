@@ -1,47 +1,27 @@
-import { useState } from "react"
-import GenericForm from "./components/form"
+// App.tsx
 
-function App() {
-  const [agente, setAgente] = useState({ nombre: "", apellido: "", apodo: 1 })
+import React from 'react';
+import EnhancedAutoTable from './components/tables';
 
+const data = [
+  { id: 1, name: 'John', age: 25 },
+  { id: 2, name: 'Jane', age: 30 },
+  { id: 3, name: 'Doe', age: 22 },
+];
+
+const columns = [
+  { key: 'id', label: 'ID' },
+  { key: 'name', label: 'Name', isButton: true, buttonAction: (row: any) => alert(`Clicked ${row.name}`) },
+  { key: 'age', label: 'Age' },
+];
+
+const App: React.FC = () => {
   return (
-    <main className="h-screen w-screen flex justify-center items-center">
-      <GenericForm
-        setValues={setAgente}
-        values={agente}
-        submit={(e: React.FormEvent<HTMLFormElement>, validator: () => boolean) => { e.preventDefault(); validator() }}
-        fields={[
-          {
-            name: "nombre",
-            type: "text",
-            label: "Nombre",
-            required: true,
-          },
-          {
-            name: "apellido",
-            type: "text",
-            label: "Apellido",
-            required: true,
-          },
+    <div className='w-screen flex flex-col justify-center items-center pt-20 gap-5'>
+      <h1>EnhancedAutoTable Example</h1>
+      <EnhancedAutoTable data={data} columns={columns} className="my-custom-table" />
+    </div>
+  );
+};
 
-          {
-            name: "apodo",
-            type: "select",
-            label: "Apodo",
-            required: true,
-            options: [{ value: 0, name: "ninguno" }, { value: 1, name: "amaro" }, { value: 2, name: "fede" },]
-          }
-        ]}
-        form={
-          {
-            className: "max-w-[300px] w-full",
-            btnSubmit: {
-              title: "Crear"
-            }
-          }}
-      />
-    </main>
-  )
-}
-
-export default App
+export default App;
